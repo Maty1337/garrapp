@@ -197,3 +197,69 @@ body {
   border-bottom: 3px solid var(--color-rojo-hover, #D8BDA3);
   padding-bottom: 0.5rem;
 }
+
+
+.wizard-step, .wizard-summary {
+  width: 100%;
+  max-width: 900px;
+}
+
+.wizard-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  flex: 1;
+}
+
+.wizard-actions .primary {
+  background: var(--color-rojo, #BF1911);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: .6rem 1rem;
+  cursor: pointer;
+}
+.wizard-actions button {
+  background: #ddd;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  padding: .6rem 1rem;
+  cursor: pointer;
+}
+
+.summary-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+.summary-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: .75rem;
+  padding: .5rem 0;
+  border-bottom: 1px solid #eee;
+}
+.summary-actions button {
+  background: #ddd;
+  border: none;
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+.summary-actions .remove {
+  background: #dc3545;
+  color: #fff;
+}
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  padding-top: .75rem;
+  border-top: 2px solid var(--color-beige, #D8BDA3);
+}

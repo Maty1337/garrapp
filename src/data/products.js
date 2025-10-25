@@ -1,15 +1,11 @@
 export const menuProducts = [
   {
-    id: 1,
-    category: '🍔 Hamburguesas',
-    name: 'Hamburguesa Clásica',
-    description: 'Medallón de carne 120gr, lechuga, tomate, queso y salsa especial.',
-    price: 6000,
+    idHamburguesa: 1,
     image: 'https://img.hogar.mapfre.es/wp-content/uploads/2018/09/hamburguesa-sencilla.jpg',
   },
   {
     id: 2,
-    category: '🍔 Hamburguesas',
+    category: 'Hamburguesas',
     name: 'Hamburguesa Doble Queso',
     description: 'Doble medallón de carne 120gr, doble queso cheddar, panceta y cebolla caramelizada.',
     price: 7500,
@@ -17,7 +13,7 @@ export const menuProducts = [
   },
   {
     id: 3,
-    category: '🍔 Hamburguesas',
+    category: 'Hamburguesas',
     name: 'Hamburguesa Vegana',
     description: 'Medallón de lentejas y garbanzos 120gr, rúcula, tomate, lechuga y mayonesa vegana.',
     price: 8000,
@@ -25,7 +21,7 @@ export const menuProducts = [
   },
   {
     id: 4,
-    category: '🍟 Acompañamientos',
+    category: 'Acompañamientos',
     name: 'Papas Fritas',
     description: 'Papas fritas crujientes con sal, panceta y queso cheddar.',
     price: 4500,
@@ -33,10 +29,18 @@ export const menuProducts = [
   },
   {
     id: 5,
-    category: '🥤 Bebidas',
+    category: 'Bebidas',
     name: 'Gaseosa',
     description: 'Lata de 350ml, varios sabores.',
     price: 3000,
     image: 'https://www.clubprovidencia.cl/restaurante/wp-content/uploads/2020/07/BEBIDAS-EN-LATA.png'
+  },
+  {
+    id: 6,
+    category: 'Extras',
+    name: 'Cheddar Extra',
+    description: 'Porción extra de queso cheddar fundido.',
+    price: 2000,
+    image: 'https://sivarious.com/wp-content/uploads/2023/06/salsa-de-queso-para-nachos.jpg'
   }
 ];
