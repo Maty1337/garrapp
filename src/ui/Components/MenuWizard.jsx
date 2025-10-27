@@ -1,8 +1,9 @@
 import React from 'react';
 import MenuItem from './MenuItem';
 import { createOrder } from '../../data/sources/api';
+import AlertConfirm from './AlertConfirm'; // 🆕 import
 
-const ORDER = ['Combos', 'Bebidas', 'Extras']; // pasos del wizard
+const ORDER = ['Combos', 'Bebidas', 'Extras'];
 
 const formatARS = (n) =>
   (Number.isFinite(n) ? n : 0).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
@@ -13,14 +14,13 @@ export default function MenuWizard({
   onAddToCart,
   onUpdateQuantity,
   onRemoveFromCart,
-  // onCheckout: podés seguir pasándolo desde App si querés usar tu limpieza/alert
   onCheckout,
-  // opcional: callback para vaciar carrito (si no usás onCheckout)
   clearCart,
 }) {
-  // Paso actual del wizard (0..ORDER.length). >= length => resumen
   const [step, setStep] = React.useState(0);
   const [metodoPago, setMetodoPago] = React.useState('tarjeta'); // 'tarjeta' | 'efectivo'
+  const [showConfirm, setShowConfirm] = React.useState(false);   // 🆕
+  const [orderNumber, setOrderNumber] = React.useState(null);    // 🆕
 
   const isSummary = step >= ORDER.length;
   const currentCategory = ORDER[step];
@@ -45,8 +45,7 @@ export default function MenuWizard({
     if (cartItems.length === 0) return;
 
     const pedido = {
-      // fecha_creacion: que la asigne el backend
-      metodoPago, // opcional: útil para auditar
+      metodoPago,
       total_bruto: Number(totalBruto.toFixed(2)),
       total_final: Number(totalFinal.toFixed(2)),
       detalles: cartItems.map((i) => ({
@@ -57,14 +56,18 @@ export default function MenuWizard({
     };
 
     try {
-      await createOrder(pedido);
-      alert('¡Gracias por tu compra! Pedido confirmado.');
-      // limpiamos carrito y volvemos a inicio
-      if (onCheckout) onCheckout(); // si ya tenías lógica centralizada
+      const creado = await createOrder(pedido); // 🆕 capturamos respuesta
+      // usa numeroPedido si tu backend lo devuelve; si no, cae al id
+      setOrderNumber(creado?.numeroPedido ?? `GA-${creado?.id}`); // 🆕
+      setShowConfirm(true); // 🆕 mostrar overlay
+
+      // limpiamos carrito (lo hacemos ya, la alerta es overlay)
+      if (onCheckout) onCheckout();
       else if (clearCart) clearCart();
-      setStep(0);
+      // opcional: no movemos el paso hasta que cierren la alerta
     } catch (e) {
       console.error(e);
+      // podés reemplazar por una alerta visual de error si querés
       alert('No pudimos confirmar el pedido. Intenta nuevamente.');
     }
   };
@@ -141,6 +144,15 @@ export default function MenuWizard({
             Confirmar compra
           </button>
         </div>
+
+        {/* 🔔 Alerta de confirmación */}
+        {showConfirm && (
+          <AlertConfirm
+            title="¡Pedido confirmado!"
+            message={`Tu número de pedido es: ${orderNumber}`}
+            onClose={() => { setShowConfirm(false); setStep(0); }}
+          />
+        )}
       </div>
     );
   }
@@ -168,18 +180,23 @@ export default function MenuWizard({
       )}
 
       <div className="wizard-actions">
-        {/* Saltar solo en Extras */}
         {currentCategory === 'Extras' && (
           <button onClick={handleSkip}>Saltar</button>
         )}
-
-        {/* Volver oculto en el primer paso (Combos) */}
         {currentCategory !== 'Combos' && (
           <button onClick={handleBack}>Volver</button>
         )}
-
         <button className="primary" onClick={handleNext}>Siguiente</button>
       </div>
+
+      {/* 🔔 Por si el usuario cierra la alerta y ya no está en resumen */}
+      {showConfirm && (
+        <AlertConfirm
+          title="¡Pedido confirmado!"
+          message={`Tu número de pedido es: ${orderNumber}`}
+          onClose={() => { setShowConfirm(false); setStep(0); }}
+        />
+      )}
     </div>
   );
 }

@@ -13,7 +13,6 @@ function App() {
 
   const handleCheckout = () => {
     if (cartItems.length > 0) {
-      alert('¡Gracias por tu compra! Tu pedido está en camino.');
       clear();
     } else {
       alert('Tu carrito está vacío. ¡Agrega algo antes de finalizar!');
