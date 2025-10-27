@@ -18,15 +18,7 @@ export const menuProducts = [
     description: 'Medallón de lentejas y garbanzos 120gr, rúcula, tomate, lechuga y mayonesa vegana.',
     price: 8000,
     image: 'https://www.conasi.eu/blog/wp-content/uploads/2022/05/hamburguesa-vegana-1.jpg'
-  },
-  {
-    id: 4,
-    category: 'Acompañamientos',
-    name: 'Papas Fritas',
-    description: 'Papas fritas crujientes con sal, panceta y queso cheddar.',
-    price: 4500,
-    image: 'https://i.blogs.es/b88670/patatas_fritas/840_560.jpg'
-  },
+  }, 
   {
     id: 5,
     category: 'Bebidas',
