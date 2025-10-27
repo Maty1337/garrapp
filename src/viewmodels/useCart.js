@@ -19,15 +19,19 @@ export function useCart() {
     localStorage.setItem(KEY, JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const add = (product) => {
-    setCartItems(prev => {
-      const found = prev.find(i => i.id === product.id);
-      if (found) {
-        return prev.map(i => i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i);
-      }
-      return [...prev, { ...product, quantity: 1 }];
-    });
-  };
+ const add = (product) => {
+  setCartItems(prev => {
+    const found = prev.find(i => i.id === product.id && i.doubleMeat === product.doubleMeat);
+    if (found) {
+      return prev.map(i =>
+        (i.id === product.id && i.doubleMeat === product.doubleMeat)
+          ? { ...i, quantity: i.quantity + 1 }
+          : i
+      );
+    }
+    return [...prev, { ...product, quantity: 1 }];
+  });
+};
 
   const updateQty = (productId, newQty) => {
     if (newQty <= 0) remove(productId);

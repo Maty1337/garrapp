@@ -1,9 +1,20 @@
-const MOCK_PRODUCTS = [
-  { id: '1', name: 'Hamburguesa Clásica', description: '120gr, queso, lechuga...', price: 6000, image: '/img/burger1.jpg' },
-  { id: '2', name: 'Hamburguesa Doble Queso', description: 'Doble medallón...', price: 7500, image: '/img/burger2.jpg' },
-];
+const BASE = process.env.REACT_APP_API_URL;
 
-export async function fetchProducts() {
-  // reemplazar por: const r = await fetch('/api/products'); return r.json();
-  return Promise.resolve(MOCK_PRODUCTS);
+export async function fetchMenu() {
+  const res = await fetch(`${BASE}/menu`, { headers: { Accept: 'application/json' } });
+  if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+  return res.json(); // <-- solo se lee una vez
 }
+
+
+
+export async function createOrder(pedido) {
+  const res = await fetch(`${BASE}/pedidos`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(pedido),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json(); // devuelve el pedido creado (con id)
+}
+
