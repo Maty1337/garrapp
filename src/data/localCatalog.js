@@ -36,7 +36,7 @@ export const localCatalog = {
     image: "/images/bebidas/gaseosa-1.5l.jpg",
     description: "Gaseosa botella 1.5L, varios sabores."
   },
-  "EXTRA-BEACON": {
+  "EXTRA-BACON": {
     image: "/images/extras/bacon.jpg",
     description: "Tiras de panceta crocante para sumar a tu combo."
   },

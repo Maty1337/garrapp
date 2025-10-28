@@ -8,7 +8,7 @@ const MenuItem = ({ product, onAddToCart }) => {
 
   const displayPrice = useMemo(() => {
     const base = Number.isFinite(product.price) ? product.price : 0;
-    return doubleMeat ? base * 1.05 : base; // +5% si eligen doble carne
+    return doubleMeat ? base + 2000 : base; // +5% si eligen doble carne
   }, [product.price, doubleMeat]);
 
   const formatARS = (n) =>
@@ -18,11 +18,13 @@ const MenuItem = ({ product, onAddToCart }) => {
     });
 
   const handleAdd = () => {
+    const variantKey = `${product.id}|${doubleMeat ? 'dbl' : 'norm'}`;
     onAddToCart({
       ...product,
       price: displayPrice,
       doubleMeat,
-      optionLabel: doubleMeat ? 'Doble carne (+5%)' : undefined,
+      optionLabel: doubleMeat ? 'Doble carne +$2000' : undefined,
+      variantKey,
     });
   };
 
@@ -45,7 +47,7 @@ const MenuItem = ({ product, onAddToCart }) => {
                 checked={doubleMeat}
                 onChange={() => setDoubleMeat((v) => !v)}
               />
-              Agregar doble carne (+5%)
+              Agregar doble carne (+$2000)
             </label>
           </div>
         )}

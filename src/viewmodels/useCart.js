@@ -11,7 +11,9 @@ export function useCart() {
     try {
       const raw = localStorage.getItem(KEY);
       if (raw) setCartItems(JSON.parse(raw));
-    } catch { /* noop */ }
+    } catch {
+      /* noop */
+    }
   }, []);
 
   // guardar en storage al cambiar
@@ -19,29 +21,31 @@ export function useCart() {
     localStorage.setItem(KEY, JSON.stringify(cartItems));
   }, [cartItems]);
 
- const add = (product) => {
-  setCartItems(prev => {
-    const found = prev.find(i => i.id === product.id && i.doubleMeat === product.doubleMeat);
-    if (found) {
-      return prev.map(i =>
-        (i.id === product.id && i.doubleMeat === product.doubleMeat)
-          ? { ...i, quantity: i.quantity + 1 }
-          : i
-      );
-    }
-    return [...prev, { ...product, quantity: 1 }];
-  });
-};
-
-  const updateQty = (productId, newQty) => {
-    if (newQty <= 0) remove(productId);
-    else {
-      setCartItems(prev => prev.map(i => i.id === productId ? { ...i, quantity: newQty } : i));
-    }
+  const add = (product) => {
+    setCartItems((prev) => {
+      const found = prev.find((i) => i.variantKey === product.variantKey);
+      if (found) {
+        return prev.map((i) =>
+          i.variantKey === product.variantKey
+            ? { ...i, quantity: i.quantity + 1 }
+            : i
+        );
+      }
+      return [...prev, { ...product, quantity: 1 }];
+    });
   };
 
-  const remove = (productId) => {
-    setCartItems(prev => prev.filter(i => i.id !== productId));
+  const updateQty = (variantKey, newQty) => {
+    setCartItems((prev) => {
+      if (newQty <= 0) return prev.filter((i) => i.variantKey !== variantKey);
+      return prev.map((i) =>
+        i.variantKey === variantKey ? { ...i, quantity: newQty } : i
+      );
+    });
+  };
+
+  const remove = (variantKey) => {
+    setCartItems((prev) => prev.filter((i) => i.variantKey !== variantKey));
   };
 
   const clear = () => setCartItems([]);
