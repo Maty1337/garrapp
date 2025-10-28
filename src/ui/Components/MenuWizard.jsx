@@ -83,18 +83,17 @@ export default function MenuWizard({
         ) : (
           <ul className="summary-list">
             {cartItems.map((it) => (
-              <li key={`${it.id}-${it.doubleMeat ? 'doble' : 'normal'}`} className="summary-row">
+              <li key={it.variantKey} className="summary-row">
                 <div>
                   <span>
-                    {it.name} {it.optionLabel ? <small>({it.optionLabel})</small> : null} ×{' '}
-                    {it.quantity}
+                    {it.name} {it.optionLabel && <small>({it.optionLabel})</small>} × {it.quantity}
                   </span>
                 </div>
                 <strong>{formatARS(it.price * it.quantity)}</strong>
                 <div className="summary-actions">
-                  <button onClick={() => onUpdateQuantity(it.id, it.quantity - 1)}>-</button>
-                  <button onClick={() => onUpdateQuantity(it.id, it.quantity + 1)}>+</button>
-                  <button className="remove" onClick={() => onRemoveFromCart(it.id)}>x</button>
+                  <button onClick={() => onUpdateQuantity(it.variantKey, it.quantity - 1)}>-</button>
+                  <button onClick={() => onUpdateQuantity(it.variantKey, it.quantity + 1)}>+</button>
+                  <button className="remove" onClick={() => onRemoveFromCart(it.variantKey)}>x</button>
                 </div>
               </li>
             ))}
