@@ -119,7 +119,3 @@ garrapp/
 - Portfolio: https://maty1337.github.io
 
 ---
-
-## 📄 Licencia
-
-Proyecto de práctica personal. Podés usarlo como referencia educativa o base para tus propios experimentos.
