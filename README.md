@@ -1,4 +1,3 @@
-no# GarrApp
 
 **GarrApp** es una aplicación web desarrollada con **React** que permite gestionar un catálogo de productos, añadirlos a un carrito y controlar cantidades de manera sencilla. Está pensada como ejercicio de práctica para reforzar conceptos de **frontend moderno**, manejo de **estado**, componentes reutilizables y experiencia de usuario.
 
